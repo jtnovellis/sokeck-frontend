@@ -13,7 +13,7 @@ function App() {
   const ref = useRef();
 
   useEffect(() => {
-    ref.current = io('https://git.heroku.com/socket-demo-jond.git');
+    ref.current = io('https://socket-demo-jond.herokuapp.com/');
     ref.current.on('broadcast', (data) => {
       if (typeof data === 'string') {
         setJoins(data);
