@@ -31,16 +31,17 @@
   margin-right: 1rem;
   display: flex;
   justify-content: flex-end;
-  word-break: break-all;
-  text-align: start;
 }
 
 .message {
   align-self: flex-start;
-  margin-left: 1rem;
   width: 100%;
+  word-break: break-all;
+  text-align: start;
+  padding-left: 0.5rem;
 }
 .message-local {
+  padding-right: 0.5rem;
   display: flex;
   justify-content: flex-end;
   width: 100%;
