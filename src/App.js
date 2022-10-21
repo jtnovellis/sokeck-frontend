@@ -7,7 +7,7 @@ import io from 'socket.io-client';
 function App() {
   const [allmessages, setAllMessages] = useState([]);
   const [isLoggged, setIsLogged] = useState(false);
-  const [user, setUser] = useState('');
+  const [localUser, setLocalUser] = useState('');
   const [message, setMessage] = useState('');
   const [joins, setJoins] = useState('');
   const ref = useRef();
@@ -15,7 +15,6 @@ function App() {
   useEffect(() => {
     ref.current = io('http://localhost:8080');
     ref.current.on('broadcast', (data) => {
-      console.log({ data });
       if (typeof data === 'string') {
         setJoins(data);
       } else {
@@ -29,29 +28,30 @@ function App() {
   }, []);
 
   const joinChannel = () => {
-    ref.current.emit('Channel', { user, message: null });
+    ref.current.emit('Channel', { user: localUser, message: null });
   };
 
   const sendMessage = (mgs) => {
-    ref.current.emit('Channel', { user, message: mgs });
+    ref.current.emit('Channel', { user: localUser, message: mgs });
   };
 
   return (
     <div className='App'>
       {isLoggged ? (
         <Chatwindow
-          user={user}
+          user={localUser}
           message={message}
           setMessage={setMessage}
           sendMessage={sendMessage}
           allmessages={allmessages}
           joins={joins}
+          localUser={localUser}
         />
       ) : (
         <Login
           joinChannel={joinChannel}
-          user={user}
-          setUser={setUser}
+          user={localUser}
+          setUser={setLocalUser}
           setIsLogged={setIsLogged}
         />
       )}

@@ -9,15 +9,15 @@ const Chatwindow = ({
   sendMessage,
   allmessages,
   joins,
+  localUser,
 }) => {
   const handleChange = (e) => {
     setMessage(e.target.value);
   };
 
   const getCurrentTime = () => {
-    const date = new Date().getTime();
-    const minutes = Math.floor(date / 60000) % 60;
-    const hours = Math.floor(date / 300000) % 60;
+    const minutes = new Date().getMinutes();
+    const hours = new Date().getHours();
     const currentTime = `${hours}:${minutes}`;
     return currentTime;
   };
@@ -32,6 +32,7 @@ const Chatwindow = ({
           message={data.message}
           key={`channel${i + 1}`}
           time={getCurrentTime}
+          localUser={localUser}
         />
       );
     });
